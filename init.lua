@@ -156,11 +156,11 @@ vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  { 'tpope/vim-sleuth', lazy = false }, -- Detect tabstop and shiftwidth automatically
 
-  'xiyaowong/transparent.nvim', -- Transparent background
+  { 'xiyaowong/transparent.nvim', lazy = false, priority = 1000 },
 
-  'github/copilot.vim', -- Github Copilot
+  { 'github/copilot.vim', lazy = false }, -- Github Copilot
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -257,9 +257,11 @@ require('lazy').setup({
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
 }, {
+  defaults = {
+    lazy = true,
+  },
+  lockfile = vim.fn.stdpath 'config' .. '/lazy-lock.json',
   ui = {
-    -- If you are using a Nerd Font: set icons to an empty table which will use the
-    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
     icons = vim.g.have_nerd_font and {} or {
       cmd = '⌘',
       config = '🛠',
@@ -279,7 +281,9 @@ require('lazy').setup({
   rocks = {
     enabled = false,
   },
+  change_detection = {
+    notify = false,
+  },
 })
-
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
