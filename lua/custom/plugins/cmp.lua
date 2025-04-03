@@ -48,6 +48,16 @@ return { -- Autocompletion
       },
       completion = { completeopt = 'menu,menuone,noinsert' },
 
+      window = {
+        completion = {
+          border = 'rounded',
+          winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
+        },
+        documentation = {
+          border = 'rounded',
+          winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None',
+        },
+      },
       -- For an understanding of why these mappings were
       -- chosen, you will need to read `:help ins-completion`
       --
@@ -111,5 +121,9 @@ return { -- Autocompletion
         { name = 'path' },
       },
     }
+    -- Transparent popup menu
+    vim.api.nvim_set_hl(0, 'Pmenu', { bg = 'none' })
+    vim.api.nvim_set_hl(0, 'PmenuSel', { bg = '#3c3836', fg = '#ebdbb2', bold = true }) -- or leave bg = 'none' too
+    vim.api.nvim_set_hl(0, 'PmenuBorder', { bg = 'none' })
   end,
 }
