@@ -258,7 +258,7 @@ require('lazy').setup({
   -- you can continue same window with `<space>sr` which resumes last telescope search
 }, {
   defaults = {
-    lazy = true,
+    lazy = false,
   },
   lockfile = vim.fn.stdpath 'config' .. '/lazy-lock.json',
   ui = {
