@@ -72,7 +72,25 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
     vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-    vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+    -- Exclude test files (e.g., test_*.py, tests/ folders)
+    vim.keymap.set('n', '<leader>sg', function()
+      require('telescope.builtin').live_grep {
+        additional_args = function()
+          return { '--glob', '!**/tests/**', '--glob', '!**/test_*.py' }
+        end,
+        prompt_title = 'Live Grep (excluding tests)',
+      }
+    end, { desc = '[S]earch [G]rep (excluding tests)' })
+
+    -- Include only test files
+    vim.keymap.set('n', '<leader>st', function()
+      require('telescope.builtin').live_grep {
+        additional_args = function()
+          return { '--glob', '**/tests/**', '--glob', '**/test_*.py' }
+        end,
+        prompt_title = 'Live Grep (tests only)',
+      }
+    end, { desc = '[S]earch [T]ests only' })
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
