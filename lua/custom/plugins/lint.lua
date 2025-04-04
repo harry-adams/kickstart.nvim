@@ -1,3 +1,5 @@
+-- lua/custom/plugins/lint.lua
+
 return {
   'mfussenegger/nvim-lint',
   event = { 'BufReadPost', 'BufWritePost' },
@@ -13,8 +15,8 @@ return {
       end,
     })
 
-    vim.keymap.set('n', '<leader>cl', function()
+    vim.keymap.set('n', '<leader>l', function()
       require('lint').try_lint()
-    end, { desc = '[C]ode [L]int' })
+    end, { desc = '[L]int current file' })
   end,
 }
