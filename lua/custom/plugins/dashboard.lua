@@ -34,42 +34,51 @@ return {
     end
 
     return {
-      theme = 'doom',
+      theme = 'hyper',
       config = {
-        { type = 'padding', val = math.floor(vim.fn.winheight(0) * 0.5) },
         header = logo,
-        center = {
-          { icon = '  ', desc = 'Load Last Session', action = 'lua require("persistence").load({ last = true })' },
-          { icon = '  ', desc = 'Find Files', action = 'Telescope find_files' },
-          { icon = '  ', desc = 'Recent Files', action = 'Telescope oldfiles' },
-          { icon = '  ', desc = 'Search Word', action = 'Telescope live_grep' },
-          { icon = '  ', desc = 'Update Plugins', action = 'Lazy update' },
-          { icon = '  ', desc = 'Quit Neovim', action = 'qa' },
+        week_header = {
+          enable = true,
         },
-        footer = footer,
-        layout = {
-          { type = 'padding', val = math.floor(vim.fn.winheight(0) * 0.25) },
+        shortcut = {
           {
-            type = 'group',
-            val = function()
-              return require('dashboard').config.header
-            end,
+            desc = '󰍉 Find File',
+            group = '@property',
+            action = 'Telescope find_files',
+            key = 'f',
           },
-          { type = 'padding', val = 2 },
           {
-            type = 'group',
-            val = function()
-              return require('dashboard').config.center
-            end,
+            desc = ' Recent Files',
+            group = '@property',
+            action = 'Telescope oldfiles',
+            key = 'r',
           },
-          { type = 'padding', val = 2 },
           {
-            type = 'group',
-            val = function()
-              return require('dashboard').config.footer
-            end,
+            desc = ' Grep Word',
+            group = '@property',
+            action = 'Telescope live_grep',
+            key = 'g',
+          },
+          {
+            desc = ' Plugins',
+            group = '@property',
+            action = 'Lazy',
+            key = 'l',
+          },
+          {
+            desc = ' Restore Session',
+            group = '@property',
+            action = 'lua require("persistence").load({ last = true })',
+            key = 's',
+          },
+          {
+            desc = '⏻ Quit',
+            group = '@property',
+            action = 'qa',
+            key = 'q',
           },
         },
+        footer = footer(),
       },
     }
   end,
