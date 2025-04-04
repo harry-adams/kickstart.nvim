@@ -3,23 +3,13 @@
 return {
   'nvimdev/dashboard-nvim',
   event = 'VimEnter',
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+    'MaximilianLloyd/ascii.nvim',
+  },
   opts = function()
-    local logo = [[
-
- /$$   /$$                                /$$              
-| $$$ | $$                               |__/              
-| $$$$| $$  /$$$$$$   /$$$$$$  /$$    /$$ /$$ /$$$$$$/$$$$ 
-| $$ $$ $$ /$$__  $$ /$$__  $$|  $$  /$$/| $$| $$_  $$_  $$
-| $$  $$$$| $$$$$$$$| $$  \ $$ \  $$/$$/ | $$| $$ \ $$ \ $$
-| $$\  $$$| $$_____/| $$  | $$  \  $$$/  | $$| $$ | $$ | $$
-| $$ \  $$|  $$$$$$$|  $$$$$$/   \  $/   | $$| $$ | $$ | $$
-|__/  \__/ \_______/ \______/     \_/    |__/|__/ |__/ |__/
-                                                           
-                                                           
-                                                           
-
-    ]]
+    local ascii = require 'ascii'
+    local logo = ascii.art.text.neovim.sharp
     local function footer()
       local datetime = os.date '%Y-%m-%d  %H:%M:%S'
       local branch = vim.fn.system('git rev-parse --abbrev-ref HEAD 2>/dev/null'):gsub('%s+', '')
@@ -33,8 +23,11 @@ return {
       return {
         '',
         'Today is ' .. datetime,
+        '',
         ' Git: ' .. git,
+        '',
         '󰊢 Changed: ' .. changed .. '   Added: ' .. added .. '   Deleted: ' .. deleted,
+        '',
         ' Plugins loaded: ' .. plugin_count,
         '',
       }
@@ -43,16 +36,40 @@ return {
     return {
       theme = 'doom',
       config = {
-        header = vim.split(logo, '\n'),
+        { type = 'padding', val = math.floor(vim.fn.winheight(0) * 0.5) },
+        header = logo,
         center = {
+          { icon = '  ', desc = 'Load Last Session', action = 'lua require("persistence").load({ last = true })' },
           { icon = '  ', desc = 'Find Files', action = 'Telescope find_files' },
           { icon = '  ', desc = 'Recent Files', action = 'Telescope oldfiles' },
           { icon = '  ', desc = 'Search Word', action = 'Telescope live_grep' },
           { icon = '  ', desc = 'Update Plugins', action = 'Lazy update' },
-          { icon = '  ', desc = 'Load Last Session', action = 'lua require("persistence").load({ last = true })' },
           { icon = '  ', desc = 'Quit Neovim', action = 'qa' },
         },
         footer = footer,
+        layout = {
+          { type = 'padding', val = math.floor(vim.fn.winheight(0) * 0.25) },
+          {
+            type = 'group',
+            val = function()
+              return require('dashboard').config.header
+            end,
+          },
+          { type = 'padding', val = 2 },
+          {
+            type = 'group',
+            val = function()
+              return require('dashboard').config.center
+            end,
+          },
+          { type = 'padding', val = 2 },
+          {
+            type = 'group',
+            val = function()
+              return require('dashboard').config.footer
+            end,
+          },
+        },
       },
     }
   end,
