@@ -1,5 +1,4 @@
 -- lua/custom/plugins/dashboard.lua
-
 return {
   'nvimdev/dashboard-nvim',
   event = 'VimEnter',
@@ -10,6 +9,7 @@ return {
   opts = function()
     local ascii = require 'ascii'
     local logo = ascii.art.text.neovim.sharp
+
     local function footer()
       local datetime = os.date '%Y-%m-%d  %H:%M:%S'
       local branch = vim.fn.system('git rev-parse --abbrev-ref HEAD 2>/dev/null'):gsub('%s+', '')
@@ -20,6 +20,7 @@ return {
       local changed = diff:match '(%d+) file' or '0'
       local stats = require('lazy').stats()
       local plugin_count = type(stats.plugins) == 'table' and #stats.plugins or 0
+
       return {
         '',
         'Today is ' .. datetime,
@@ -34,46 +35,49 @@ return {
     end
 
     return {
-      theme = 'hyper',
+      theme = 'doom',
       config = {
         header = logo,
-        week_header = {
-          enable = true,
-        },
-        shortcut = {
+        center = {
           {
-            desc = '󰍉 Find File',
-            group = '@property',
+            icon = ' ',
+            desc = 'Projects',
+            action = 'Telescope project',
+            key = 'p',
+          },
+          {
+            icon = '󰍉 ',
+            desc = 'Find File',
             action = 'Telescope find_files',
             key = 'f',
           },
           {
-            desc = ' Recent Files',
-            group = '@property',
+            icon = ' ',
+            desc = 'Recent Files',
             action = 'Telescope oldfiles',
             key = 'r',
           },
           {
-            desc = ' Grep Word',
-            group = '@property',
+            icon = ' ',
+            desc = 'Grep Word',
             action = 'Telescope live_grep',
             key = 'g',
           },
           {
-            desc = ' Plugins',
-            group = '@property',
+            icon = ' ',
+            desc = 'Plugins',
             action = 'Lazy',
             key = 'l',
           },
           {
-            desc = ' Restore Session',
-            group = '@property',
+            icon = ' ',
+            desc = 'Restore Session',
             action = 'lua require("persistence").load({ last = true })',
             key = 's',
           },
           {
-            desc = '⏻ Quit',
-            group = '@property',
+            icon = '⏻ ',
+            desc = 'Quit',
             action = 'qa',
             key = 'q',
           },
