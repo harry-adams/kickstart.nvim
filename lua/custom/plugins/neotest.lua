@@ -1,5 +1,3 @@
--- lua/custom/plugins/neotest.lua
-
 return {
   'nvim-neotest/neotest',
   dependencies = {
@@ -10,44 +8,72 @@ return {
     'nvim-neotest/nvim-nio',
   },
   config = function()
-    local neotest = require 'neotest'
-
-    neotest.setup {
-      adapters = {
-        require 'neotest-python' {
-          dap = { justMyCode = false },
-          runner = 'pytest',
-          args = { '--capture=no', '--log-cli-level=INFO' },
-          python = function()
-            return os.getenv 'VIRTUAL_ENV' and vim.fn.exepath 'python' or 'python3'
-          end,
-        },
-      },
-    }
-
     local map = vim.keymap.set
-    map('n', '<leader>tt', function()
-      neotest.run.run()
-    end, { desc = '[T]est [T]est (nearest)' })
 
+    local function open_floating_term(cmd)
+      local buf = vim.api.nvim_create_buf(false, true)
+      local width = math.floor(vim.o.columns * 0.8)
+      local height = math.floor(vim.o.lines * 0.6)
+      local win = vim.api.nvim_open_win(buf, true, {
+        relative = 'editor',
+        width = width,
+        height = height,
+        row = math.floor((vim.o.lines - height) / 2),
+        col = math.floor((vim.o.columns - width) / 2),
+        style = 'minimal',
+        border = 'rounded',
+      })
+
+      vim.fn.termopen(cmd)
+      vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<cmd>close<CR>', { noremap = true, silent = true })
+    end
+
+    -- Run all tests
+    map('n', '<leader>ta', function()
+      open_floating_term 'mpb test'
+    end, { desc = '[T]est [A]ll tests' })
+
+    -- Run tests in current file
     map('n', '<leader>tf', function()
-      neotest.run.run(vim.fn.expand '%')
+      open_floating_term('mpb test ' .. vim.fn.expand '%')
     end, { desc = '[T]est [F]ile' })
 
-    map('n', '<leader>td', function()
-      neotest.run.run { strategy = 'dap' }
-    end, { desc = '[T]est [D]ebug' })
+    -- Run test under cursor
+    map('n', '<leader>tt', function()
+      local file = vim.fn.expand '%'
+      local row = vim.api.nvim_win_get_cursor(0)[1] - 1
+      local ts_utils = require 'nvim-treesitter.ts_utils'
+      local parser = vim.treesitter.get_parser(0, 'python')
+      local tree = parser:parse()[1]
+      local root = tree:root()
 
-    map('n', '<leader>ts', function()
-      neotest.summary.toggle()
-    end, { desc = '[T]est [S]ummary' })
+      local function get_enclosing(node, type_name)
+        while node do
+          if node:type() == type_name then
+            return node
+          end
+          node = node:parent()
+        end
+      end
 
-    map('n', '<leader>to', function()
-      neotest.output.open { enter = true, auto_close = true }
-    end, { desc = '[T]est [O]utput' })
+      local current_node = ts_utils.get_node_at_cursor()
+      local func_node = get_enclosing(current_node, 'function_definition')
 
-    map('n', '<leader>tp', function()
-      vim.cmd '!pytest %'
-    end, { desc = '[T]est: run pytest on file (manual)' })
+      if not func_node then
+        print 'No test function found under cursor'
+        return
+      end
+
+      local name_node = func_node:field('name')[1]
+      local test_name = vim.treesitter.get_node_text(name_node, 0)
+
+      if not test_name then
+        print 'Could not extract test name'
+        return
+      end
+
+      local cmd = string.format('mpb test %s -k %q', file, test_name)
+      open_floating_term(cmd)
+    end, { desc = '[T]est [T]est under cursor (floating)' })
   end,
 }

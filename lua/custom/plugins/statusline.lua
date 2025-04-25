@@ -28,8 +28,8 @@ return {
         options = {
           icons_enabled = vim.g.have_nerd_font,
           theme = 'gruvbox',
-          section_separators = { left = '', right = '' },
-          component_separators = { left = '', right = '' },
+          section_separators = { left = '', right = '' },
+          component_separators = { left = '|', right = '|' },
           disabled_filetypes = { 'oil' },
         },
         sections = {
