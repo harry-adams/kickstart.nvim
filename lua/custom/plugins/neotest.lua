@@ -30,12 +30,12 @@ return {
 
     -- Run all tests
     map('n', '<leader>ta', function()
-      open_floating_term 'mpb test'
+      open_floating_term 'mpb test --disable-warnings'
     end, { desc = '[T]est [A]ll tests' })
 
     -- Run tests in current file
     map('n', '<leader>tf', function()
-      open_floating_term('mpb test ' .. vim.fn.expand '%')
+      open_floating_term('mpb test --disable-warnings ' .. vim.fn.expand '%')
     end, { desc = '[T]est [F]ile' })
 
     -- Run test under cursor
@@ -72,7 +72,7 @@ return {
         return
       end
 
-      local cmd = string.format('mpb test %s -k %q', file, test_name)
+      local cmd = string.format('mpb test --disable-warnings %s -k %q', file, test_name)
       open_floating_term(cmd)
     end, { desc = '[T]est [T]est under cursor (floating)' })
   end,
