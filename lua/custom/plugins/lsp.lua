@@ -85,13 +85,26 @@ return {
       -- LSP capabilities
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      local util = require 'lspconfig.util'
 
       local servers = {
-        pyright = {},
-        lua_ls = {
+        pyright = {
           settings = {
-            Lua = {
-              completion = { callSnippet = 'Replace' },
+            python = {
+              analysis = {
+                typeCheckingMode = 'strict',
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = 'workspace',
+              },
+              pythonPath = util.path.join(util.root_pattern '.git'(vim.fn.getcwd()), 'enb', 'bin', 'python'),
+            },
+            lua_ls = {
+              settings = {
+                Lua = {
+                  completion = { callSnippet = 'Replace' },
+                },
+              },
             },
           },
         },
