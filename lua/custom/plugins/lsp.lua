@@ -86,6 +86,7 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
       local util = require 'lspconfig.util'
+      local root = util.root_pattern '.git'(vim.fn.getcwd()) or vim.fn.getcwd()
 
       local servers = {
         pyright = {
@@ -97,7 +98,7 @@ return {
                 useLibraryCodeForTypes = true,
                 diagnosticMode = 'workspace',
               },
-              pythonPath = util.path.join(util.root_pattern '.git'(vim.fn.getcwd()), 'enb', 'bin', 'python'),
+              pythonPath = util.path.join(root, 'env', 'bin', 'python'),
             },
             lua_ls = {
               settings = {
