@@ -12,3 +12,7 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 vim.keymap.set('n', '<leader>z', ':ZenMode<CR>', { desc = 'Toggle Zen Mode' })
+
+-- Buffer navigation
+vim.keymap.set('n', '<leader>[', ':bp<CR>', { desc = 'Buffer [P]revious' })
+vim.keymap.set('n', '<leader>]', ':bn<CR>', { desc = 'Buffer [N]ext' })
