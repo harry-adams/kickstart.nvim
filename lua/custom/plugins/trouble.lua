@@ -9,7 +9,7 @@ return {
     require('trouble').setup({})
     -- Register which-key group for trouble functionality
     require('which-key').add({
-      { '<leader>x', group = 'Trouble/E[x]plore' },
+      { '<leader>x', group = '+diagnostics/quickfix' },
     })
   end,
   keys = {

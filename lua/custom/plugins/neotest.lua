@@ -11,7 +11,7 @@ return {
   config = function()
     -- Register which-key group for test functionality
     require('which-key').add({
-      { '<leader>t', group = '[T]est/Toggle' },
+      { '<leader>t', group = '+test' },
     })
 
     local map = vim.keymap.set

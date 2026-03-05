@@ -13,6 +13,18 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 vim.keymap.set('n', '<leader>z', ':ZenMode<CR>', { desc = 'Toggle Zen Mode' })
 
--- Buffer navigation
-vim.keymap.set('n', '<leader>[', ':bp<CR>', { desc = 'Buffer [P]revious' })
-vim.keymap.set('n', '<leader>]', ':bn<CR>', { desc = 'Buffer [N]ext' })
+-- Buffer management group
+vim.keymap.set('n', '<leader>bp', ':bp<CR>', { desc = '[B]uffer [P]revious' })
+vim.keymap.set('n', '<leader>bn', ':bn<CR>', { desc = '[B]uffer [N]ext' })
+vim.keymap.set('n', '<leader>bd', ':bd<CR>', { desc = '[B]uffer [D]elete' })
+vim.keymap.set('n', '<leader>bs', function()
+  require('telescope.builtin').buffers()
+end, { desc = '[B]uffer [S]witch' })
+
+-- Window management
+vim.keymap.set('n', '<leader>-', '<C-w>s', { desc = 'Split Window Below' })
+vim.keymap.set('n', '<leader>|', '<C-w>v', { desc = 'Split Window Right' })
+vim.keymap.set('n', '<leader>\'', '<C-^>', { desc = 'Switch to Other Buffer' })
+
+-- Tool shortcuts
+vim.keymap.set('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Lazy' })

@@ -33,8 +33,8 @@ return {
 
           -- Register which-key groups for LSP functionality
           require('which-key').add({
-            { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
-            { '<leader>w', group = '[W]orkspace' },
+            { '<leader>c', group = '+code', mode = { 'n', 'x' } },
+            { '<leader>w', group = '+windows' },
           })
 
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')

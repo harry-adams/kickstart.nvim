@@ -57,34 +57,38 @@ return { -- Useful plugin to show you pending keybinds.
 
     -- Document existing key chains
     spec = {
-      -- Keep only the working groups
-      { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
-      { '<leader>s', group = '[S]earch' },
-      { '<leader>t', group = '[T]est/Toggle' },
-      { '<leader>w', group = '[W]orkspace' },
-      { '<leader>x', group = 'Trouble/E[x]plore' },
+      -- Left Column - Navigation & Tools
+      { '<leader>e', desc = 'Explorer (Root Dir)' },
+      { '<leader>E', desc = 'Explorer (cwd)' },
+      { '<leader>K', desc = 'Keyword/prg' },
+      { '<leader>l', desc = 'Lazy' },
+      { '<leader>L', desc = 'LazyVim Changelog' },
+      { '<leader>p', desc = 'Open Yank History' },
+      { '<leader>z', desc = 'Zen Mode' },
+      { '<leader>v', desc = 'Switch Buffer' },
+      { '<leader>-', desc = 'Split Window Below' },
 
-      -- Buffer and navigation
-      { '<leader>[', desc = 'Buffer [P]revious' },
-      { '<leader>]', desc = 'Buffer [N]ext' },
+      -- Middle Column - Search & Core
+      { '<leader>/', desc = 'Grep (Root Dir)' },
+      { '<leader>:', desc = 'Command History' },
+      { '<leader>?', desc = 'Buffer Localmaps (which-key)' },
+      { '<leader>\'', desc = 'Switch to Other Buffer' },
+      { '<leader>|', desc = 'Split Window Right' },
+      { '<leader> ', desc = 'Find Files (Root Dir)' },
+      { '<leader>a', group = '+ai' },
+      { '<leader>b', group = '+buffer' },
+      { '<leader>c', group = '+code', mode = { 'n', 'x' } },
 
-      -- File operations
-      { '<leader>e', desc = 'Open [E]xplorer' },
-      { '<leader>f', desc = '[F]ormat file' },
-
-      -- Tools and utilities
-      { '<leader>l', desc = '[L]int current file' },
-      { '<leader>z', desc = 'Toggle Zen Mode' },
-
-      -- Single diagnostic command (moved from q to Q to avoid conflict)
-      { '<leader>Q', desc = 'Open diagnostic [Q]uickfix list' },
-
-      -- Git operations (this group works correctly, so keeping it)
-      { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-
-      -- Debug operations
-      { '<leader>b', desc = 'Toggle [B]reakpoint' },
-      { '<leader>B', desc = 'Conditional [B]reakpoint' },
+      -- Right Column - Feature Groups
+      { '<leader>f', group = '+file/find' },
+      { '<leader>g', group = '+git' },
+      { '<leader>q', group = '+quit/session' },
+      { '<leader>s', group = '+search' },
+      { '<leader>t', group = '+test' },
+      { '<leader>u', group = '+ui' },
+      { '<leader>w', group = '+windows' },
+      { '<leader>x', group = '+diagnostics/quickfix' },
+      { '<leader><Tab>', group = '+tabs' },
     },
   },
 }

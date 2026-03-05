@@ -77,9 +77,10 @@ return { -- Fuzzy Finder (files, lsp, etc)
     pcall(require('telescope').load_extension, 'ui-select')
     pcall(require('telescope').load_extension, 'project')
 
-    -- Register which-key group for search functionality
+    -- Register which-key groups for search and file functionality
     require('which-key').add({
-      { '<leader>s', group = '[S]earch' },
+      { '<leader>s', group = '+search' },
+      { '<leader>f', group = '+file/find' },
     })
 
     -- See `:help telescope.builtin`
@@ -111,21 +112,13 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-    vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-    -- Slightly advanced example of overriding default behavior and theme
+    vim.keymap.set('n', '<leader>v', builtin.buffers, { desc = 'Switch Buffer' })
+    -- Root directory grep search
     vim.keymap.set('n', '<leader>/', function()
-      -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-      builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-        winblend = 0, -- Fully transparent for consistent theme
-        previewer = false,
-        borderchars = {
-          { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-          prompt = {"─", "│", " ", "│", '┌', '┐', "│", "│"},
-          results = {"─", "│", "─", "│", "├", "┤", "┘", "└"},
-          preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
-        },
+      builtin.live_grep({
+        prompt_title = 'Grep (Root Dir)',
       })
-    end, { desc = '[/] Fuzzily search in current buffer' })
+    end, { desc = 'Grep (Root Dir)' })
 
     -- It's also possible to pass additional configuration options.
     --  See `:help telescope.builtin.live_grep()` for information about particular keys
@@ -140,5 +133,17 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sn', function()
       builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[S]earch [N]eovim files' })
+
+    -- File/Find group
+    vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
+    vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = '[F]ind [R]ecent files' })
+    vim.keymap.set('n', '<leader>fn', function()
+      builtin.find_files { cwd = vim.fn.stdpath 'config' }
+    end, { desc = '[F]ind [N]eovim config files' })
+
+    -- Additional single-key functions
+    vim.keymap.set('n', '<leader> ', builtin.find_files, { desc = 'Find Files (Root Dir)' })
+    vim.keymap.set('n', '<leader>:', builtin.command_history, { desc = 'Command History' })
+    vim.keymap.set('n', '<leader>?', '<cmd>WhichKey<cr>', { desc = 'Buffer Localmaps (which-key)' })
   end,
 }
