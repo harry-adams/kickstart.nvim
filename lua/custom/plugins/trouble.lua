@@ -2,8 +2,16 @@
 
 return {
   'folke/trouble.nvim',
+  dependencies = { 'folke/which-key.nvim' },
   opts = {}, -- for default options, refer to the configuration section for custom setup.
   cmd = 'Trouble',
+  config = function()
+    require('trouble').setup({})
+    -- Register which-key group for trouble functionality
+    require('which-key').add({
+      { '<leader>x', group = 'Trouble/E[x]plore' },
+    })
+  end,
   keys = {
     {
       '<leader>xx',

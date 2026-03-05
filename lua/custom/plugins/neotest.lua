@@ -1,6 +1,7 @@
 return {
   'nvim-neotest/neotest',
   dependencies = {
+    'folke/which-key.nvim',
     'nvim-lua/plenary.nvim',
     'nvim-treesitter/nvim-treesitter',
     'antoinemadec/FixCursorHold.nvim',
@@ -8,6 +9,11 @@ return {
     'nvim-neotest/nvim-nio',
   },
   config = function()
+    -- Register which-key group for test functionality
+    require('which-key').add({
+      { '<leader>t', group = '[T]est/Toggle' },
+    })
+
     local map = vim.keymap.set
 
     local function open_floating_term(cmd)

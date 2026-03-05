@@ -3,6 +3,7 @@
 return {
   {
     'rmagatti/goto-preview',
+    dependencies = { 'folke/which-key.nvim' },
     lazy = false,
     config = function()
       local gp = require 'goto-preview'
@@ -16,11 +17,7 @@ return {
         end,
       }
 
-      local map = vim.keymap.set
-      map('n', '<leader>pd', gp.goto_preview_definition, { desc = '[P]review [D]efinition' })
-      map('n', '<leader>pi', gp.goto_preview_implementation, { desc = '[P]review [I]mplementation' })
-      map('n', '<leader>pt', gp.goto_preview_type_definition, { desc = '[P]review [T]ype' })
-      map('n', '<leader>pC', gp.close_all_win, { desc = '[P]review [C]lose all' })
+      -- Preview group removed - causing issues
     end,
   },
 }

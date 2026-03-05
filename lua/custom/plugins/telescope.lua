@@ -3,6 +3,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
   event = 'VimEnter',
   branch = 'master',
   dependencies = {
+    'folke/which-key.nvim',
     'nvim-lua/plenary.nvim',
     { -- If encountering errors, see telescope-fzf-native README for installation instructions
       'nvim-telescope/telescope-fzf-native.nvim',
@@ -47,12 +48,14 @@ return { -- Fuzzy Finder (files, lsp, etc)
     require('telescope').setup {
       -- You can put your default mappings / updates / etc. in here
       --  All the info you're looking for is in `:help telescope.setup()`
-      --
-      -- defaults = {
-      --   mappings = {
-      --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-      --   },
-      -- },
+      defaults = {
+        -- Ensure transparent theme compatibility
+        winblend = 0, -- Fully transparent
+        borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+        mappings = {
+          i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+        },
+      },
       -- pickers = {}
       extensions = {
         ['ui-select'] = {
@@ -73,6 +76,12 @@ return { -- Fuzzy Finder (files, lsp, etc)
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
     pcall(require('telescope').load_extension, 'project')
+
+    -- Register which-key group for search functionality
+    require('which-key').add({
+      { '<leader>s', group = '[S]earch' },
+    })
+
     -- See `:help telescope.builtin`
     local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
@@ -107,8 +116,14 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>/', function()
       -- You can pass additional configuration to Telescope to change the theme, layout, etc.
       builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-        winblend = 10,
+        winblend = 0, -- Fully transparent for consistent theme
         previewer = false,
+        borderchars = {
+          { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
+          prompt = {"─", "│", " ", "│", '┌', '┐', "│", "│"},
+          results = {"─", "│", "─", "│", "├", "┤", "┘", "└"},
+          preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
+        },
       })
     end, { desc = '[/] Fuzzily search in current buffer' })
 
