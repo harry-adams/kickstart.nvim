@@ -18,7 +18,7 @@ A modular, Kickstart-inspired Neovim setup focused on:
 ## Features
 
 - Plugin management with [lazy.nvim](https://github.com/folke/lazy.nvim)
-- LSP integration via `nvim-lspconfig`, `mason`, `pyright`, `lua_ls`
+- LSP integration via `nvim-lspconfig`, `mason`, `basedpyright`, `lua_ls`
 - Autocompletion with `nvim-cmp`, `LuaSnip`, and LSP sources
 - Fuzzy finding with `telescope.nvim`, including test-specific searches
 - Visual polish with `gruvbox`, `transparent.nvim`, `lualine`
@@ -92,7 +92,7 @@ nvim
 
 ## Tooling
 
-- Python: `pyright`, `ruff`, `black`, `isort`
+- Python: `basedpyright`, `ruff`, `black`, `isort`
 - Lua: `lua_ls`, `stylua`
 - Format-on-save + lint-on-save enabled
 
