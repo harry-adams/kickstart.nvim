@@ -3,7 +3,6 @@
 return {
   {
     'rmagatti/goto-preview',
-    dependencies = { 'folke/which-key.nvim' },
     lazy = false,
     config = function()
       local gp = require 'goto-preview'

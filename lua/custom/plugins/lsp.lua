@@ -31,12 +31,6 @@ return {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          -- Register which-key groups for LSP functionality
-          require('which-key').add({
-            { '<leader>c', group = '+code', mode = { 'n', 'x' } },
-            { '<leader>w', group = '+windows' },
-          })
-
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
@@ -212,8 +206,6 @@ return {
       -- LSP capabilities
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-      local util = require 'lspconfig.util'
-      local root = util.root_pattern '.git'(vim.fn.getcwd()) or vim.fn.getcwd()
 
       local servers = {
         basedpyright = {

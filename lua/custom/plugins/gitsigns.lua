@@ -1,15 +1,6 @@
 return {
   'lewis6991/gitsigns.nvim',
   lazy = false,
-  opts = {
-    signs = {
-      add = { text = '+' },
-      change = { text = '~' },
-      delete = { text = '_' },
-      topdelete = { text = '‾' },
-      changedelete = { text = '~' },
-    },
-  },
   config = function()
     require('gitsigns').setup({
       signs = {
@@ -28,7 +19,6 @@ return {
           vim.keymap.set(mode, l, r, opts)
         end
 
-        -- Navigation (keep existing)
         map('n', ']h', function()
           if vim.wo.diff then
             vim.cmd.normal { ']c', bang = true }
@@ -45,7 +35,6 @@ return {
           end
         end, { desc = 'Prev Git [H]unk' })
 
-        -- Actions under <leader>g
         map('n', '<leader>gs', gs.stage_hunk, { desc = '[G]it [S]tage hunk' })
         map('v', '<leader>gs', function()
           gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
@@ -62,7 +51,6 @@ return {
         map('n', '<leader>gd', gs.diffthis, { desc = '[G]it [D]iff against index' })
         map('n', '<leader>gD', function() gs.diffthis('@') end, { desc = '[G]it [D]iff against last commit' })
 
-        -- Toggles (keep under t group)
         map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
         map('n', '<leader>tD', gs.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
       end,

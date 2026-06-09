@@ -9,11 +9,6 @@ return {
     'nvim-neotest/nvim-nio',
   },
   config = function()
-    -- Register which-key group for test functionality
-    require('which-key').add({
-      { '<leader>t', group = '+test' },
-    })
-
     local map = vim.keymap.set
 
     local function open_floating_term(cmd)

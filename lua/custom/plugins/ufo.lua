@@ -11,10 +11,9 @@ return {
     close_fold_kinds_for_ft = {
       default = { 'imports', 'comment' },
     },
-    provider_selector = function(bufnr, filetype, _)
-      local ft = vim.bo[bufnr].filetype
+    provider_selector = function(_, filetype, _)
       local ts_ok, parsers = pcall(require, 'nvim-treesitter.parsers')
-      if ts_ok and parsers.has_parser(ft) then
+      if ts_ok and parsers.has_parser(filetype) then
         return { 'treesitter', 'indent' }
       else
         return { 'indent' }

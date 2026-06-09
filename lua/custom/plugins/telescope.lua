@@ -3,7 +3,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
   event = 'VimEnter',
   branch = 'master',
   dependencies = {
-    'folke/which-key.nvim',
     'nvim-lua/plenary.nvim',
     { -- If encountering errors, see telescope-fzf-native README for installation instructions
       'nvim-telescope/telescope-fzf-native.nvim',
@@ -76,12 +75,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
     pcall(require('telescope').load_extension, 'project')
-
-    -- Register which-key groups for search and file functionality
-    require('which-key').add({
-      { '<leader>s', group = '+search' },
-      { '<leader>f', group = '+file/find' },
-    })
 
     -- See `:help telescope.builtin`
     local builtin = require 'telescope.builtin'

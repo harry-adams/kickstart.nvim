@@ -19,10 +19,8 @@ return { -- Useful plugin to show you pending keybinds.
       align = 'left', -- align columns left, center or right
     },
     icons = {
-      -- set icon mappings to true if you have a Nerd Font
       mappings = vim.g.have_nerd_font,
-      -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
-      -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
+      colors = false, -- use uniform WhichKeyIcon color instead of per-icon category colors
       keys = vim.g.have_nerd_font and {} or {
         Up = '<Up> ',
         Down = '<Down> ',
@@ -55,40 +53,17 @@ return { -- Useful plugin to show you pending keybinds.
       },
     },
 
-    -- Document existing key chains
+    -- Only define groups that have globally-registered keymaps.
+    -- Groups that only exist via buffer-local maps (git, windows/LSP) are
+    -- omitted here — which-key discovers them automatically when relevant.
     spec = {
-      -- Left Column - Navigation & Tools
-      { '<leader>e', desc = 'Explorer (Root Dir)' },
-      { '<leader>E', desc = 'Explorer (cwd)' },
-      { '<leader>K', desc = 'Keyword/prg' },
-      { '<leader>l', desc = 'Lazy' },
-      { '<leader>L', desc = 'LazyVim Changelog' },
-      { '<leader>p', desc = 'Open Yank History' },
-      { '<leader>z', desc = 'Zen Mode' },
-      { '<leader>v', desc = 'Switch Buffer' },
-      { '<leader>-', desc = 'Split Window Below' },
-
-      -- Middle Column - Search & Core
-      { '<leader>/', desc = 'Grep (Root Dir)' },
-      { '<leader>:', desc = 'Command History' },
-      { '<leader>?', desc = 'Buffer Localmaps (which-key)' },
-      { '<leader>\'', desc = 'Switch to Other Buffer' },
-      { '<leader>|', desc = 'Split Window Right' },
-      { '<leader> ', desc = 'Find Files (Root Dir)' },
-      { '<leader>a', group = '+ai' },
-      { '<leader>b', group = '+buffer' },
-      { '<leader>c', group = '+code', mode = { 'n', 'x' } },
-
-      -- Right Column - Feature Groups
-      { '<leader>f', group = '+file/find' },
-      { '<leader>g', group = '+git' },
-      { '<leader>q', group = '+quit/session' },
-      { '<leader>s', group = '+search' },
-      { '<leader>t', group = '+test' },
-      { '<leader>u', group = '+ui' },
-      { '<leader>w', group = '+windows' },
-      { '<leader>x', group = '+diagnostics/quickfix' },
-      { '<leader><Tab>', group = '+tabs' },
+      { '<leader>b', group = 'buffer' },
+      { '<leader>c', group = 'code', mode = { 'n', 'x' } },
+      { '<leader>f', group = 'find' },
+      { '<leader>q', group = 'quit/session' },
+      { '<leader>s', group = 'search' },
+      { '<leader>t', group = 'test' },
+      { '<leader>x', group = 'diagnostics' },
     },
   },
 }
