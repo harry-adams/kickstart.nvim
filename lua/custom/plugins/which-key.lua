@@ -20,7 +20,6 @@ return { -- Useful plugin to show you pending keybinds.
     },
     icons = {
       mappings = vim.g.have_nerd_font,
-      colors = false, -- use uniform WhichKeyIcon color instead of per-icon category colors
       keys = vim.g.have_nerd_font and {} or {
         Up = '<Up> ',
         Down = '<Down> ',

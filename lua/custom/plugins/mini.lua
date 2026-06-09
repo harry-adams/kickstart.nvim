@@ -1,6 +1,6 @@
 return {
   'echasnovski/mini.nvim',
-  lazy = false,
+  event = 'VeryLazy',
   config = function()
     require('mini.ai').setup { n_lines = 500 }
     require('mini.surround').setup()

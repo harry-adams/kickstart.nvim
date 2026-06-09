@@ -2,6 +2,7 @@
 
 return {
   'SmiteshP/nvim-navic',
+  event = { 'BufReadPre', 'BufReadPost' },
   dependencies = {
     'neovim/nvim-lspconfig',
   },

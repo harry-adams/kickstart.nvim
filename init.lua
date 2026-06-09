@@ -19,7 +19,7 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {
   defaults = {
-    lazy = false,
+    lazy = true,
   },
   lockfile = vim.fn.stdpath 'config' .. '/lazy-lock.json',
   ui = {

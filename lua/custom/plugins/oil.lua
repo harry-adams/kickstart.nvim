@@ -1,8 +1,9 @@
 return {
   'stevearc/oil.nvim',
-  lazy = false,
-  priority = 1000,
   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  keys = {
+    { '<leader>e', function() require('oil').open_float() end, desc = 'Open [E]xplorer (Oil Float)' },
+  },
   config = function()
     require('oil').setup {
       view_options = {
@@ -26,7 +27,6 @@ return {
     vim.api.nvim_set_hl(0, 'OilFile', { link = 'Normal' })
     vim.api.nvim_set_hl(0, 'OilDir', { link = 'Directory' })
 
-    vim.keymap.set('n', '<leader>e', require('oil').open_float, { desc = 'Open [E]xplorer (Oil Float)' })
     vim.api.nvim_create_autocmd('FileType', {
       pattern = 'oil',
       callback = function(args)

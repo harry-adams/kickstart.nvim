@@ -1,5 +1,6 @@
 return {
   'nvim-neotest/neotest',
+  event = 'VeryLazy',
   dependencies = {
     'folke/which-key.nvim',
     'nvim-lua/plenary.nvim',

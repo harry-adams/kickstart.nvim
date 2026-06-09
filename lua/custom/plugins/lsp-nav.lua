@@ -3,7 +3,7 @@
 return {
   {
     'rmagatti/goto-preview',
-    lazy = false,
+    event = 'LspAttach',
     config = function()
       local gp = require 'goto-preview'
       gp.setup {

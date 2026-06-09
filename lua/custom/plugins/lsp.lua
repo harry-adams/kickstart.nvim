@@ -14,8 +14,8 @@ return {
   {
     -- Main LSP setup
     'neovim/nvim-lspconfig',
+    event = { 'BufReadPre', 'BufReadPost' },
     dependencies = {
-      'folke/which-key.nvim',
       { 'williamboman/mason.nvim', opts = {} },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -215,7 +215,7 @@ return {
                 typeCheckingMode = 'strict',
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = true,
-                diagnosticMode = 'workspace',
+                diagnosticMode = 'openFilesOnly',
                 reportAny = 'none',
               },
             },
