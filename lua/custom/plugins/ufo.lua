@@ -23,12 +23,6 @@ return {
   config = function(_, opts)
     require('ufo').setup(opts)
 
-    -- Set fold options
-    vim.o.foldcolumn = '1' -- Show fold indicators in sign column
-    vim.o.foldlevel = 99 -- Default to expanded
-    vim.o.foldlevelstart = 99
-    vim.o.foldenable = true
-
     -- Keybindings
     vim.keymap.set('n', 'zR', require('ufo').openAllFolds, { desc = 'Open all folds (ufo)' })
     vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, { desc = 'Close all folds (ufo)' })

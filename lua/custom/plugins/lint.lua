@@ -4,7 +4,6 @@ return {
   'mfussenegger/nvim-lint',
   event = { 'BufReadPost', 'BufWritePost' },
   config = function()
-    require('lint').linters.ruff.cmd = '/Users/harryadams/.local/bin/ruff'
     require('lint').linters_by_ft = {
       python = { 'ruff' },
     }

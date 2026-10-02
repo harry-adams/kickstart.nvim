@@ -13,6 +13,7 @@ return {
     mode = 'cursor',
     on_attach = function(bufnr)
       local win = vim.fn.bufwinid(bufnr)
+      if win == -1 then return true end
       local winbar = vim.wo[win].winbar
       if winbar and winbar:match 'navic' then
         return false

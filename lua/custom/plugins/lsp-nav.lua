@@ -15,8 +15,6 @@ return {
           end, { buffer = buf, desc = 'Close goto-preview window' })
         end,
       }
-
-      -- Preview group removed - causing issues
     end,
   },
 }
