@@ -42,6 +42,18 @@ return { -- Fuzzy Finder (files, lsp, etc)
     -- Telescope picker. This is really useful to discover what Telescope can
     -- do as well as how to actually do it!
 
+    -- Project roots live in lua/custom/projects.lua, which is gitignored so
+    -- that machine-local directory layout stays out of the repo. See
+    -- projects.lua.example. max_depth is relative to each dir, and a repo's
+    -- .git must fall within it, so a dir holding repos directly needs 2.
+    local function project_base_dirs()
+      local ok, dirs = pcall(require, 'custom.projects')
+      if ok and type(dirs) == 'table' then
+        return dirs
+      end
+      return { { '~/.config', max_depth = 2 } }
+    end
+
     -- [[ Configure Telescope ]]
     -- See `:help telescope` and `:help telescope.setup()`
     require('telescope').setup {
@@ -61,10 +73,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
           require('telescope.themes').get_dropdown(),
         },
         project = {
-          base_dirs = {
-            { '~/Development', max_depth = 3 },
-            { '~/.config', max_depth = 2 },
-          },
+          base_dirs = project_base_dirs(),
           hidden_files = false,
           theme = 'dropdown',
         },
@@ -127,15 +136,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
       builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[S]earch [N]eovim files' })
 
-    -- File/Find group
-    vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
-    vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = '[F]ind [R]ecent files' })
-    vim.keymap.set('n', '<leader>fn', function()
-      builtin.find_files { cwd = vim.fn.stdpath 'config' }
-    end, { desc = '[F]ind [N]eovim config files' })
-
-    -- Additional single-key functions
-    vim.keymap.set('n', '<leader> ', builtin.find_files, { desc = 'Find Files (Root Dir)' })
     vim.keymap.set('n', '<leader>:', builtin.command_history, { desc = 'Command History' })
     vim.keymap.set('n', '<leader>?', '<cmd>WhichKey<cr>', { desc = 'Buffer Localmaps (which-key)' })
   end,

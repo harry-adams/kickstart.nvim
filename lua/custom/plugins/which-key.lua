@@ -58,7 +58,7 @@ return { -- Useful plugin to show you pending keybinds.
     spec = {
       { '<leader>b', group = 'buffer' },
       { '<leader>c', group = 'code', mode = { 'n', 'x' } },
-      { '<leader>f', group = 'find' },
+      { '<leader>g', group = 'git' },
       { '<leader>q', group = 'quit/session' },
       { '<leader>s', group = 'search' },
       { '<leader>t', group = 'test' },

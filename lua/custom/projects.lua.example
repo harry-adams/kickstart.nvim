@@ -1,0 +1,12 @@
+-- lua/custom/projects.lua
+--
+-- Copy this file to projects.lua and edit. It holds machine-local project
+-- roots for telescope-project and is gitignored, so local directory layout
+-- stays off the public remote.
+--
+-- max_depth is relative to the dir: a repo's .git must fall within it, so a
+-- dir holding repos directly needs max_depth = 2, not 1.
+return {
+  { '~/code', max_depth = 2 },
+  { '~/.config', max_depth = 2 },
+}
