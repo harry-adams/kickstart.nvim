@@ -40,6 +40,7 @@ A modular, Kickstart-inspired Neovim setup focused on:
 ~/.config/nvim/
 ├── init.lua                 # Entry point (minimal)
 ├── lazy-lock.json           # Plugin lockfile
+├── tmux.conf                # tmux config, symlinked to ~/.tmux.conf
 └── lua
     └── custom
         ├── init.lua         # Loads core modules below
@@ -68,11 +69,17 @@ A modular, Kickstart-inspired Neovim setup focused on:
 
 ```bash
 git clone https://github.com/yourusername/nvim ~/.config/nvim
+ln -s ~/.config/nvim/tmux.conf ~/.tmux.conf
 nvim
 ```
 
 - Run `:Mason` to install LSPs and tools
 - Run `:Lazy` to manage plugins
+
+`tmux.conf` lives here so it is version controlled alongside the editor
+config; tmux reads it through the symlink. It contains literal powerline
+glyphs (U+E0B0 / U+E0B2) in the status bar, so edit it with a tool that
+preserves raw UTF-8 bytes.
 
 ---
 
